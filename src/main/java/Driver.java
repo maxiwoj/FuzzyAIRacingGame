@@ -2,6 +2,7 @@ import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.rule.FuzzyRuleSet;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
