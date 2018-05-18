@@ -1,0 +1,69 @@
+FUNCTION_BLOCK
+VAR_INPUT
+opponent_x_loc : REAL;
+opponent_y_loc : REAL;
+own_y_loc : REAL;
+last_opponent_diff : REAL;
+END_VAR
+
+VAR_OUTPUT
+zmiana_polozenia : REAL;
+END_VAR
+
+FUZZIFY last_opponent_diff
+TERM bardzo_blisko := (0, 1) (50, 1) (100, 0);
+TERM daleko := (80, 0) (120, 1) (300, 1);
+END_FUZZIFY
+
+FUZZIFY opponent_x_loc
+TERM bardzo_blisko := (-200, 1) (70, 1) (120, 0);
+TERM blisko := (100, 0) (150, 1) (220, 1) (300, 0);
+TERM daleko := (250, 0) (300, 1) (350, 1) (400, 0);
+TERM bardzo_daleko := (350, 0) (400, 1) (600,1);
+END_FUZZIFY
+
+FUZZIFY opponent_y_loc
+TERM po_lewej := (124, 1) (150, 1) (200, 0);
+TERM na_srodku := (150, 0) (210, 1) (230, 1) (280, 0);
+TERM po_prawej := (230, 0) (280, 1) (324, 1);
+END_FUZZIFY
+
+FUZZIFY own_y_loc
+TERM po_lewej := (124, 1) (150, 1) (200, 0);
+TERM na_srodku := (150, 0) (210, 1) (230, 1) (280, 0);
+TERM po_prawej := (230, 0) (280, 1) (324, 1);
+END_FUZZIFY
+
+DEFUZZIFY zmiana_polozenia
+TERM w_lewo := (-20, 1) (-10, 1) (0, 0);
+TERM zostan := (-10, 0) (0, 1) (10, 0);
+TERM w_prawo := (0, 0) (10, 1) (20, 1);
+METHOD : COG;
+DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK first
+AND: MIN;
+ACT: MIN;
+
+RULE 0: IF opponent_x_loc IS bardzo_daleko THEN zmiana_polozenia IS zostan;
+RULE 1: IF opponent_y_loc IS po_lewej AND own_y_loc IS po_lewej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_prawo;
+RULE 2: IF opponent_y_loc IS po_prawej AND own_y_loc IS po_prawej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_lewo;
+RULE 3: IF opponent_y_loc IS po_lewej AND own_y_loc IS po_prawej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS zostan;
+RULE 4: IF opponent_y_loc IS po_prawej AND own_y_loc IS po_lewej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS zostan;
+
+RULE 5: IF opponent_x_loc IS daleko THEN zmiana_polozenia IS zostan;
+
+RULE 6: IF own_y_loc IS po_prawej AND opponent_y_loc IS na_srodku AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_prawo;
+RULE 7: IF own_y_loc IS po_lewej AND opponent_y_loc IS na_srodku AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_lewo;
+
+RULE 8: IF own_y_loc IS na_srodku and opponent_y_loc IS po_prawej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_lewo;
+RULE 9: IF own_y_loc IS na_srodku and opponent_y_loc IS po_lewej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_prawo;
+
+RULE 11: IF last_opponent_diff IS bardzo_blisko THEN zmiana_polozenia IS zostan;
+
+
+
+
+END_RULEBLOCK
+END_FUNCTION_BLOCK
