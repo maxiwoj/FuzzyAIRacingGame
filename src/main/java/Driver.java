@@ -71,8 +71,7 @@ public class Driver implements Runnable{
 
     private void moveCar(Double movement) throws InterruptedException {
         robot.setAutoDelay(0);
-        int intMovement = movement.intValue();
-        System.out.println("Int movement: " + intMovement);
+        int intMovement = (int) Math.round(movement);
         if(intMovement < 0) {
             robot.keyPress(KeyEvent.VK_LEFT);
             Thread.sleep(Math.abs(intMovement) * 10);
@@ -83,9 +82,7 @@ public class Driver implements Runnable{
             robot.keyRelease(KeyEvent.VK_RIGHT);
         } else {
             Thread.sleep(1);
-            System.out.println("Waiting!");
         }
-//        System.out.println("movement val: " + movement.toString());
     }
 
     @Override

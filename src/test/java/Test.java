@@ -15,10 +15,10 @@ public class Test {
     }
 
     public void testMovement() {
-        fuzzyRuleSet.setVariable("opponent_x_loc",322);
-        fuzzyRuleSet.setVariable("opponent_y_loc", 300);
-        fuzzyRuleSet.setVariable("own_y_loc", 138);
-        fuzzyRuleSet.setVariable("last_opponent_diff", 185 - 138);
+        fuzzyRuleSet.setVariable("opponent_x_loc",100);
+        fuzzyRuleSet.setVariable("opponent_y_loc", 185);
+        fuzzyRuleSet.setVariable("own_y_loc", 174);
+        fuzzyRuleSet.setVariable("last_opponent_diff", 300);
 
         fuzzyRuleSet.evaluate();
 

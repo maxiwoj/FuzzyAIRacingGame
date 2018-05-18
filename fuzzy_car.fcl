@@ -46,13 +46,13 @@ RULEBLOCK first
 AND: MIN;
 ACT: MIN;
 
-RULE 0: IF opponent_x_loc IS bardzo_daleko THEN zmiana_polozenia IS zostan;
+//RULE 0: IF opponent_x_loc IS bardzo_daleko THEN zmiana_polozenia IS zostan;
 RULE 1: IF opponent_y_loc IS po_lewej AND own_y_loc IS po_lewej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_prawo;
 RULE 2: IF opponent_y_loc IS po_prawej AND own_y_loc IS po_prawej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_lewo;
 RULE 3: IF opponent_y_loc IS po_lewej AND own_y_loc IS po_prawej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS zostan;
 RULE 4: IF opponent_y_loc IS po_prawej AND own_y_loc IS po_lewej AND last_opponent_diff IS daleko THEN zmiana_polozenia IS zostan;
 
-RULE 5: IF opponent_x_loc IS daleko THEN zmiana_polozenia IS zostan;
+RULE 5: IF opponent_y_loc IS na_srodku AND own_y_loc IS na_srodku THEN zmiana_polozenia NOT zostan;
 
 RULE 6: IF own_y_loc IS po_prawej AND opponent_y_loc IS na_srodku AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_prawo;
 RULE 7: IF own_y_loc IS po_lewej AND opponent_y_loc IS na_srodku AND last_opponent_diff IS daleko THEN zmiana_polozenia IS w_lewo;
